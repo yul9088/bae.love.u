@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            color: #333;
+        }
+        .faq-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .faq-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .faq-header h1 {
+            font-size: 2rem;
+            color: #007BFF;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+        }
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0;
+            padding: 10px;
+            border: none;
+            background: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .faq-answer {
+            margin-top: 10px;
+            padding: 10px;
+            border-left: 4px solid #007BFF;
+            background: #f1f1f1;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <div class="faq-header">
+            <h1>Якщо у тебе є питання, тоось вони </h1>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Коли я придумала цю ідею?</button>
+            <div class="faq-answer">12 Грудня, в 17:51. Чому саме тоді ? Не знаю, питання не до мене як працює мозок..</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">How can I contact support?</button>
+            <div class="faq-answer">You can contact support via email at support@example.com or through our contact form.</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Can I customize the design?</button>
+            <div class="faq-answer">Yes, the design can be easily customized by modifying the HTML and CSS code provided.</div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>

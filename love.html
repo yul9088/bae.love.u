@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine</title>
+  <!-- FontAwesome for the heart and close icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    /* Import Google Font 'Pacifico' */
+    @import url('https://fonts.googleapis.com/css?family=Pacifico');
+
+    body {
+      background: url("https://subtlepatterns.com/patterns/noise_lines.png");
+      font-family: 'Pacifico', cursive;
+      overflow: hidden;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .bgoverlay {
+      background: rgba(103,58,183,0.7);
+      position: absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      /* No explicit z-index here. But some browsers may still treat it as top. */
+    }
+
+    /* Adjusted back button style with z-index */
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: inline-block;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-family: Arial, sans-serif; /* fallback font for readability */
+      padding: 8px 12px;
+      background-color: rgba(0,0,0,0.3);
+      border-radius: 4px;
+      z-index: 9999; /* <-- Ensures it sits above any overlays */
+    }
+
+    .back-button:hover {
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .container {
+      position: relative;
+      margin: 120px auto 0 auto;
+      width: 320px;
+    }
+
+    .ico {
+      display: block;
+      width: 320px;
+      height: 320px;
+      position: relative;
+    }
+
+    .open .ico {
+      animation: open 4s forwards;
+      transform: scale(10);
+    }
+
+    .ico .title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -95px;
+      margin-top: -73px;
+      z-index: 4;
+      font-size: 50px;
+      cursor: pointer;
+      text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+    }
+
+    .open .ico .title {
+      opacity: 0;
+      transition: all 0.3s ease;
+      top: -100px;
+    }
+
+    /* The hearts */
+    .ico:before,
+    .ico:after,
+    .ico2:before,
+    .ico2:after {
+      position: absolute;
+      top:0;
+      left:0;
+      display: block;
+      font-size: 20em;
+      color: #ff4081;
+      content: "\f004"; /* Unicode for FontAwesome heart */
+      font-family: FontAwesome;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .ico2:before,
+    .ico2:after {
+      color: #e91e63;
+    }
+
+    .ico:before {
+      z-index: 3;
+    }
+
+    /* Heart animations */
+    .ico:after {
+      animation: explode 4s infinite;
+    }
+    .ico2:before {
+      animation: explodeSmall 3s infinite;
+    }
+    .ico2:after {
+      animation: explodeSmall 2s infinite;
+    }
+
+    .endtext {
+      opacity: 0;
+      position: absolute;
+      top: -100px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .open .endtext {
+      top: 0;
+      opacity: 1;
+      animation: show 5s forwards;
+    }
+
+    .endtext .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+      text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+    }
+
+    .endtext h1,
+    .endtext h2,
+    .endtext h3 {
+      text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+      font-weight: normal;
+      margin: 10px 0;
+    }
+
+    .endtext h1 {
+      font-size: 50px;
+    }
+    .endtext h2 {
+      font-size: 30px;
+    }
+    .endtext h3 {
+      font-size: 20px;
+    }
+
+    /* Animations */
+    @keyframes explode {
+      from {
+        transform: scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: scale(1.6);
+        opacity: 0;
+      }
+    }
+    @keyframes explodeSmall {
+      from {
+        transform: scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+    }
+    @keyframes open {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(10);
+      }
+    }
+    @keyframes show {
+      from {
+        opacity: 0;
+        top: -100px;
+      }
+      to {
+        opacity: 1;
+        top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Back button with higher z-index -->
+  <a href="index.html" class="back-button">
+    <i class="fa fa-arrow-left"></i> Back
+  </a>
+
+  <div class="bgoverlay"></div>
+  
+  <div class="container">
+    <span class="ico">
+      <span class="ico2"></span>
+      <span class="title">I wish u...</span>
+    </span>
+    <div class="endtext">
+      <span class="close" title="Restart"><i class="fa fa-times"></i></span>
+      <h1>Любові!</h1>
+      <h2>I love you, bae.</h2>
+      <h3>Нехай в твоєму серці завжди живе Любов, тепло і бажання жити.</h3>
+    </div>
+  </div>
+
+  <!-- jQuery and the script -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.title').click(function(){
+        $('.container').addClass('open');
+      });
+      
+      $('.close').click(function(){
+        $('.container').removeClass('open');
+      });
+    });
+  </script>
+</body>
+</html>

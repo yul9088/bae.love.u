@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ Page - Glassmorphism Design</title>
+  <!-- Link to the external stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1>Тобі цікаво...?</h1>
+
+  <div class="faq-container">
+    <!-- FAQ Item 1 -->
+    <div class="faq-item">
+      <button class="faq-question">
+        Коли я придумала цю ідею?
+        <span class="icon">&#9662;</span>
+      </button>
+      <div class="faq-answer">
+        <p>
+            12 Грудня, в 17:51. Це вже було після того як ми поговорили про моє можливе навчання.
+        </p>
+      </div>
+    </div>
+
+    <!-- FAQ Item 2 -->
+    <div class="faq-item">
+      <button class="faq-question">
+        Чи допомагав мені хтось?
+        <span class="icon">&#9662;</span>
+      </button>
+      <div class="faq-answer">
+        <p>
+          Тільки GPT, точніше він все робив а я його мучала. 
+        </p>
+      </div>
+    </div>
+
+    <!-- FAQ Item 3 -->
+    <div class="faq-item">
+      <button class="faq-question">
+        Скільки часу у мене зайняло ? 
+        <span class="icon">&#9662;</span>
+      </button>
+      <div class="faq-answer">
+        <p>
+            Я логала час - 16 годин.
+        </p>
+      </div>
+    </div>
+
+    <!-- FAQ Item 4 -->
+    <div class="faq-item">
+      <button class="faq-question">
+        Чи мені було складно ? 
+        <span class="icon">&#9662;</span>
+      </button>
+      <div class="faq-answer">
+        <p>
+          Не дуже, тому що я все рівно не розумію що робить код. Що б це зрозуміти, осягнути, треба не просто підставляти як попало блоками, а самому на початку навчання писати і розуміти. У мене на це немає часу і памʼяті. 
+        </p>
+      </div>
+    </div>
+
+     <!-- FAQ Item 5 -->
+     <div class="faq-item">
+        <button class="faq-question">
+            Що я згадала..?
+          <span class="icon">&#9662;</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Коли я почала вже працювати з кодом, з файлами, тегами..я відчула щось дуже знайоме, ну і подумала що це через мій досвід для Андроїду. Це так і ні. Потім я згадала що я коли робила сама свій сайт для портфоліо моїх робіт по 3D. Також десь хостила, розбиралась, також були файліки і папочка. Але там все було просто (сторінка, превʼю картинок і самі картинки, ну мої роботи), точно без JS.
+          </p>
+        </div>
+      </div>
+  </div>
+
+  <script>
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        // Toggle the 'active' class on the question
+        question.classList.toggle('active');
+        // Toggle the open class for the associated answer
+        const faqAnswer = question.nextElementSibling;
+        faqAnswer.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>

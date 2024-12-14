@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Row Button Spinner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .cube-container {
+            text-align: center;
+        }
+
+        .roll-button {
+            width: 120px;
+            height: 50px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .roll-button:hover {
+            background-color: #0056b3;
+        }
+
+        .options-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .option {
+            width: 100px;
+            height: 100px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .option:hover {
+            transform: scale(1.1);
+            background: #aaa;
+        }
+        .option.head { background: #ff6666; }
+        .option.neck { background: #66b2ff; }
+        .option.arm { background: #ffd966; }
+        .option.leg { background: #85e085; }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            border-radius: 10px;
+            z-index: 1000;
+        }
+        .popup img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .popup button {
+            width: 120px;
+            height: 50px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .popup button:hover {
+            background-color: #0056b3;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Updated Back button style */
+        .back-button {
+            position: fixed;
+            top: 20px;      /* Moved to top-left corner */
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            color: #007BFF;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Add a left-arrow icon before the text */
+        .back-button::before {
+            content: "←";
+            margin-right: 8px;
+        }
+        .back-button:hover {
+            background-color: #e6f2ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="cube-container">
+        <button class="roll-button" onclick="roll()">Roll</button>
+        <div class="options-row">
+            <div class="option head">Head</div>
+            <div class="option neck">Neck</div>
+            <div class="option leg">Leg</div>
+            <div class="option arm">Arm</div>
+        </div>
+    </div>
+
+    <div id="overlay"></div>
+
+    <div class="popup" id="popup">
+        <img id="popupImage" src="" alt="Body Part">
+        <p id="popupText"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <!-- Modernized Back Button in the top-left corner -->
+    <button class="back-button" onclick="goBack()">Back</button>
+
+    <script>
+        const options = ["head", "neck", "leg", "arm"];
+        const messages = {
+            "head": {
+                text: "Let's your head don't have pain",
+                img: "https://via.placeholder.com/100?text=Head"
+            },
+            "neck": {
+                text: "Take care of your neck!",
+                img: "https://via.placeholder.com/100?text=Neck"
+            },
+            "leg": {
+                text: "Let your legs stay strong!",
+                img: "https://via.placeholder.com/100?text=Leg"
+            },
+            "arm": {
+                text: "Strengthen your arms!",
+                img: "https://via.placeholder.com/100?text=Arm"
+            }
+        };
+
+        function roll() {
+            const elements = document.querySelectorAll('.option');
+            let index = 0;
+            const rollCount = 10; // Total iterations
+            let iteration = 0;
+
+            const interval = setInterval(() => {
+                // Reset hover effect
+                elements.forEach(el => el.style.transform = "");
+
+                // Highlight current option
+                elements[index].style.transform = "scale(1.1)";
+
+                index = (index + 1) % options.length;
+
+                // Slowing down effect
+                iteration++;
+                if (iteration > rollCount) {
+                    clearInterval(interval);
+
+                    // Randomize final result
+                    const randomIndex = Math.floor(Math.random() * options.length);
+                    const selected = options[randomIndex];
+                    showPopup(selected);
+                }
+            }, 100 + iteration * 20); // Increase delay gradually
+        }
+
+        function showPopup(option) {
+            const popup = document.getElementById("popup");
+            const overlay = document.getElementById("overlay");
+            const popupText = document.getElementById("popupText");
+            const popupImage = document.getElementById("popupImage");
+
+            popupText.innerText = messages[option].text;
+            popupImage.src = messages[option].img;
+
+            popup.style.display = "block";
+            overlay.style.display = "block";
+        }
+
+        function closePopup() {
+            const popup = document.getElementById("popup");
+            const overlay = document.getElementById("overlay");
+            popup.style.display = "none";
+            overlay.style.display = "none";
+        }
+
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,82 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ Page</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #f8f9fa, #e9ecef);
-            color: #333;
-        }
-        .faq-container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .faq-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .faq-header h1 {
-            font-size: 2rem;
-            color: #007BFF;
-        }
-        .faq-item {
-            margin-bottom: 20px;
-        }
-        .faq-question {
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 0;
-            padding: 10px;
-            border: none;
-            background: #007BFF;
-            color: #fff;
-            border-radius: 5px;
-        }
-        .faq-answer {
-            margin-top: 10px;
-            padding: 10px;
-            border-left: 4px solid #007BFF;
-            background: #f1f1f1;
-            border-radius: 5px;
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NY Card</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    /* You can move these styles into styles.css if you prefer */
+    .corner-link {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background-color: rgba(0, 0, 0, 0.5); /* Adjust color/opacity to match your theme */
+      color: #fff;                          /* Text color */
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-family: sans-serif;
+      z-index: 9999; /* Ensure this stays on top */
+      transition: background-color 0.2s ease;
+    }
+
+    .corner-link:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  </style>
 </head>
 <body>
-    <div class="faq-container">
-        <div class="faq-header">
-            <h1>Якщо у тебе є питання, тоось вони </h1>
-        </div>
-        <div class="faq-item">
-            <button class="faq-question">Коли я придумала цю ідею?</button>
-            <div class="faq-answer">12 Грудня, в 17:51. Чому саме тоді ? Не знаю, питання не до мене як працює мозок..</div>
-        </div>
-        <div class="faq-item">
-            <button class="faq-question">How can I contact support?</button>
-            <div class="faq-answer">You can contact support via email at support@example.com or through our contact form.</div>
-        </div>
-        <div class="faq-item">
-            <button class="faq-question">Can I customize the design?</button>
-            <div class="faq-answer">Yes, the design can be easily customized by modifying the HTML and CSS code provided.</div>
-        </div>
-    </div>
-    <script>
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-            });
-        });
-    </script>
+  <h1>Choose the present</h1>
+  <div class="gift-container">
+    <div class="gift red" onclick="window.location.href='spiner.html';"></div>
+    <div class="gift white"></div>
+    <div class="gift green" onclick="window.location.href='love.html';"></div>
+  </div>
+
+  <!-- SNOWFALL CONTAINER -->
+  <div id="snowfall"></div>
+
+  <!-- CORNER LINK -->
+  <a href="FAQ.html" class="corner-link" title="Click if you opened all presents.">Do you have any questions?</a>
+
+  <script src="script.js"></script>
 </body>
 </html>

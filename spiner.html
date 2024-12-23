@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Row Button Spinner</title>
+    <title>Button Spinner</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,39 +12,25 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
+            line-height: 1;
+            background-color: #7e475d;
         }
 
         .cube-container {
             text-align: center;
         }
 
-        .roll-button {
-            width: 120px;
-            height: 50px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-            margin-bottom: 20px;
-            transition: background-color 0.3s ease;
-        }
-        .roll-button:hover {
-            background-color: #0056b3;
-        }
-
-        .options-row {
-            display: flex;
-            gap: 20px;
+        .options-grid {
+            display: grid;
+            grid-template-areas: "roll head him leg arm";
+            grid-gap: 40px;
+            align-items: center;
             justify-content: center;
         }
 
         .option {
             width: 100px;
-            height: 100px;
+            height: 70px;
             background: #ddd;
             display: flex;
             align-items: center;
@@ -56,14 +42,33 @@
             cursor: pointer;
             transition: transform 0.2s ease, background 0.2s ease;
         }
+
         .option:hover {
             transform: scale(1.1);
             background: #aaa;
         }
-        .option.head { background: #ff6666; }
-        .option.neck { background: #66b2ff; }
-        .option.arm { background: #ffd966; }
-        .option.leg { background: #85e085; }
+
+        .option.head { background: #cfd186; grid-area: head; }
+        .option.him { background: #5b8c5a; grid-area: him; }
+        .option.leg { background: #596157; grid-area: leg; }
+        .option.arm { background: #52414c; grid-area: arm; }
+
+        .roll-button {
+            grid-area: roll;
+            width: 110px;
+            height: 110px;
+            background-color: #c93242;
+            color: white;
+            border: none;
+            border-radius: 80%; /* Circular */
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .roll-button:hover {
+            background-color: #ec243e;
+        }
 
         .popup {
             display: none;
@@ -72,31 +77,34 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 20px;
+            padding: 60px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             text-align: center;
-            border-radius: 10px;
+            border-radius: 15px;
             z-index: 1000;
         }
+
         .popup img {
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 200px;
             margin-bottom: 10px;
         }
+
         .popup button {
-            width: 120px;
+            width: 90px;
             height: 50px;
-            background-color: #007BFF;
+            background-color: #52414c;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 18px;
             margin-top: 10px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.8s ease;
         }
+
         .popup button:hover {
-            background-color: #0056b3;
+            background-color: #4b3135;
         }
 
         #overlay {
@@ -110,40 +118,118 @@
             z-index: 999;
         }
 
-        /* Updated Back button style */
-        .back-button {
+/* "Back" Button Styling */
+.back-button {
             position: fixed;
-            top: 20px;      /* Moved to top-left corner */
-            left: 20px;
-            background-color: transparent;
+            top: 10px;
+            left: 10px;
+            background-color: #725f7e;
+            color: white;
             border: none;
-            color: #007BFF;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            padding: 8px 12px;
+            padding: 10px 15px;
+            border-radius: 5px;
             display: flex;
             align-items: center;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            opacity: 0.7;
         }
-        /* Add a left-arrow icon before the text */
+
+        .back-button:hover {
+            background-color: #65789f;
+            transform: scale(1.1);
+        }
+
+        /* Arrow Icon for "Back" Button */
         .back-button::before {
             content: "←";
             margin-right: 8px;
+            font-size: 18px;
         }
-        .back-button:hover {
-            background-color: #e6f2ff;
-        }
+
+        /* Riddle styles */
+
+    .riddle_container {
+      display:flex;
+      justify-content:space-around;
+      width: 800px;                 /* Example fixed width; adjust or remove as needed */
+      padding: 50px;
+ 
+    }
+    
+
+
+    .riddle_text {
+      font-size: 1.2rem;
+      text-align: left;
+      color: #d29eb3;
+      margin-left: 10%;
+      font-weight: bold;
+    }
+
+    /* The clickable field container */
+    #clickableField {
+      position: relative;        /* allows absolute positioning of child elements if needed */
+      width: 100px;             /* adjust width as needed */
+      height: 40px;             /* adjust height as needed */
+      border-radius: 8px;       /* rounded corners */
+      background-color: #744156;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;       /* vertically center text */
+      justify-content: center;   /* horizontally center text */
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Hover effect: slightly lift the box */
+    #clickableField:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Hidden text (initially invisible) */
+    #hiddenText {
+      display: none;
+      color: #251c1c;
+      font-size: 1.1rem;
+    }
+
+
+
+
     </style>
 </head>
 <body>
+
+     <!-- Back Button -->
+     <button class="back-button" onclick="goBack()">Back</button>
+
+     <div class="riddle_container">
+        <div class="riddle_text">
+            <p> Це має кожен, ти і я </p>
+            <p> І нове не купиш, як не старайся </p>
+            <p> Бережи його завжди, буду слідкувати</p>
+            <p> Бо заміни не знайдеш, що б не було пізно 😅 Що це? -> </p>
+
+        </div>
+
+        <!-- The field where text is revealed on click -->
+        <div id="clickableField">
+            <span id="hiddenText">Здоров'я</span>
+        </div>
+
+    </div
+
     <div class="cube-container">
-        <button class="roll-button" onclick="roll()">Roll</button>
-        <div class="options-row">
-            <div class="option head">Head</div>
-            <div class="option neck">Neck</div>
-            <div class="option leg">Leg</div>
-            <div class="option arm">Arm</div>
+        <div class="options-grid">
+            <button class="roll-button" onclick="roll()">Roll</button>
+            <div class="option head">Голова</div>
+            <div class="option him">Він</div>
+            <div class="option leg">Коліна</div>
+            <div class="option arm">Руки</div>
         </div>
     </div>
 
@@ -155,27 +241,24 @@
         <button onclick="closePopup()">Close</button>
     </div>
 
-    <!-- Modernized Back Button in the top-left corner -->
-    <button class="back-button" onclick="goBack()">Back</button>
-
     <script>
-        const options = ["head", "neck", "leg", "arm"];
+        const options = ["head", "him", "leg", "arm"];
         const messages = {
             "head": {
-                text: "Let's your head don't have pain",
-                img: "https://via.placeholder.com/100?text=Head"
+                text: "Нехай твоя голова завжди буде така ж розумна, і що б памʼяті вистачало на нас двох",
+                img: "images/head.png"
             },
-            "neck": {
-                text: "Take care of your neck!",
-                img: "https://via.placeholder.com/100?text=Neck"
+            "him": {
+                text: "Ну що б завжди 💪 ",
+                img: "images/him.png"
             },
             "leg": {
-                text: "Let your legs stay strong!",
-                img: "https://via.placeholder.com/100?text=Leg"
+                text: "Нехай твої коліна не болять!",
+                img: "images/legs.png"
             },
             "arm": {
-                text: "Strengthen your arms!",
-                img: "https://via.placeholder.com/100?text=Arm"
+                text: "Що б ти був сильний, здоровий, і вистачало сил мене донести куди треба, і зустріти з супермаркету ❤️ ",
+                img: "images/arms.png"
             }
         };
 
@@ -227,9 +310,20 @@
             overlay.style.display = "none";
         }
 
-        function goBack() {
+         // Function to handle the Back button click
+         function goBack() {
             window.location.href = "index.html";
         }
+
+        //Riddle hidden field 
+        const clickableField = document.getElementById('clickableField');
+    const hiddenText = document.getElementById('hiddenText');
+    
+    clickableField.addEventListener('click', () => {
+      // Reveal the text inside the same container
+      hiddenText.style.display = 'inline';
+    });
+
     </script>
 </body>
 </html>

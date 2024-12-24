@@ -21,3 +21,15 @@ for (let i = 0; i < NUM_SNOWFLAKES; i++) {
 
   snowfallContainer.appendChild(snowflake);
 }
+
+ // Знайти всі кнопки з класом 'sound-button'
+ const buttons = document.querySelectorAll('.gift-container');
+ const bellSound = document.getElementById('bell-sound');
+
+ buttons.forEach(button => {
+     button.addEventListener('mouseenter', () => {
+         // Перезапустити звук при кожному ховері
+         bellSound.currentTime = 0;
+         bellSound.play();
+     });
+ });
